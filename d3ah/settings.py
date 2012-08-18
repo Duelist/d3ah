@@ -1,7 +1,7 @@
 import os
 
 # Django settings for d3ah project.
-PROJECT_DIR = 'C:\\Users\\User\\Desktop\\Google Drive\\d3ah\\'
+PROJECT_DIR = ''
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -24,6 +24,7 @@ DATABASES = {
 }
 
 AUTH_PROFILE_MODULE = 'social.UserProfile'
+LOGIN_URL = '/login/'
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -130,6 +131,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'auctions',
+    'social',
 )
 
 # A sample logging configuration. The only tangible logging

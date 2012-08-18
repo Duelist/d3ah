@@ -3,6 +3,10 @@ from django.contrib.auth.models import User
 
 AUCTION_TYPES = (('sc','Softcore'),('hc','Hardcore'))
 AUCTION_RULES = (('dur','Duration'),('mnp','Minimum Price'))
+AUCTION_STATES = (
+    ('pd','Pending'),
+    ('cp', 'Complete'),
+)
 
 AFFIX_TYPES = (
     ('ias','Attack Speed %'),
@@ -38,6 +42,7 @@ class Affix(models.Model):
 class Auction(models.Model):
     item = models.OneToOneField(Item)
     type = models.CharField('Auction Type', max_length=2, choices=AUCTION_TYPES)
+    state = models.CharField('Auction State', max_length=2, choices=AUCTION_STATES)
     created_date = models.DateTimeField('Date Created')
     
     def __unicode__(self):
