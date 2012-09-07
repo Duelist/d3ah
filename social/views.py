@@ -6,21 +6,27 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 
+from social.forms import *
+
 def login_user(request,template_name='social/login.html'):
     username = ''
     password = ''
     errors = []
     
     if request.POST != None:
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        
-        user = authenticate(username=username,password=password)
-        if user is not None:
-            if user.is_active:
-                login(request,user)
+        form = LoginForm(request.POST)
+        if form.is_valid:
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            
+            user = authenticate(username=username,password=password)
+            if user is not None:
+                if user.is_active:
+                    login(request,user)
+    else:
+        form = LoginForm()
     
-    return render_to_response(template_name,{'errors': errors},context_instance=RequestContext(request))
+    return render_to_response(template_name,{'errors': errors, 'form': form},context_instance=RequestContext(request))
 
 @login_required
 def profile(request,template_name='social/profile.html'):
