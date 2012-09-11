@@ -1,9 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.conf import settings
 
 AUCTION_TYPES = (('sc','Softcore'),('hc','Hardcore'))
 AUCTION_RULES = (('dur','Duration'),('mnp','Minimum Price'))
 AUCTION_STATES = (
+	('av', 'Available'),
     ('pd','Pending'),
     ('cp', 'Complete'),
 )
@@ -46,7 +48,7 @@ class Auction(models.Model):
     created_date = models.DateTimeField('Date Created')
     
     def __unicode__(self):
-        return self.item.name + ' (' + str(self.created_date) + ')'
+        return self.item.name
 
 class Rule(models.Model):
     auction = models.ForeignKey(Auction)

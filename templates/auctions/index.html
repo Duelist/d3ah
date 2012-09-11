@@ -1,5 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
-    Auctions
+    <div>
+    	<legend>Auctions</legend>
+    	<table class="table table-striped">
+    		<thead>
+    			<td>Item</td>
+    			<td>Level</td>
+    			<td>Start Time</td>
+    			<td>State</td>
+    		</thead>
+    		{% for auction in auctions %}
+    		<tr>
+    			<td>{{ auction.item.name }}</td>
+    			<td>{{ auction.item.level }}</td>
+    			<td>{{ auction.created_date }}</td>
+    			<td>{{ auction.state }}</td>
+    		</tr>
+    		{% endfor %}
+    	</table>
+    </div>
 {% endblock %}

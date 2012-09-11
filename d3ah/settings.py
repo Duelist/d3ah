@@ -1,7 +1,16 @@
 import os
 
-# Django settings for d3ah project.
-PROJECT_DIR = ''
+try:
+    import local_settings
+    DATABASES = local_settings.DATABASES
+    PROJECT_DIR = local_settings.PROJECT_DIR
+    MEDIA_ROOT = local_settings.MEDIA_ROOT
+    MEDIA_URL = local_settings.MEDIA_URL
+    STATIC_ROOT = local_settings.STATIC_ROOT
+    STATIC_URL = local_settings.STATIC_URL
+    GOOGLE_ANALYTICS_TRACKING_CODE = local_settings.GOOGLE_ANALYTICS_TRACKING_CODE
+except ImportError:
+    pass
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -162,14 +171,3 @@ LOGGING = {
         },
     }
 }
-
-try:
-    import local_settings
-    DATABASES = local_settings.DATABASES
-    MEDIA_ROOT = local_settings.MEDIA_ROOT
-    MEDIA_URL = local_settings.MEDIA_URL
-    STATIC_ROOT = local_settings.STATIC_ROOT
-    STATIC_URL = local_settings.STATIC_URL
-    GOOGLE_ANALYTICS_TRACKING_CODE = local_settings.GOOGLE_ANALYTICS_TRACKING_CODE
-except ImportError:
-    pass
