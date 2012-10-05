@@ -2,10 +2,18 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
 
-AUCTION_TYPES = (('sc','Softcore'),('hc','Hardcore'))
-AUCTION_RULES = (('dur','Duration'),('mnp','Minimum Price'))
+AUCTION_TYPES = (
+    ('sc','Softcore'),
+    ('hc','Hardcore'),
+)
+
+AUCTION_RULES = (
+    ('dur','Duration'),
+    ('mnp','Minimum Price'),
+)
+
 AUCTION_STATES = (
-	('av', 'Available'),
+    ('av', 'Available'),
     ('pd','Pending'),
     ('cp', 'Complete'),
 )

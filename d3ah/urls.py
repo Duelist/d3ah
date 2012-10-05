@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     
     (r'^' + settings.STATIC_URL + '(?P<path>.*)$', 'django.views.static.serve',{'document_root': settings.STATIC_ROOT, 'show_indexes': True}),
     
-    #(r'', include('auctions.urls')),
+    (r'', include('branding.urls')),
     (r'', include('auctions.urls')),
     (r'', include('social.urls')),
 )

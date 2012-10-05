@@ -1,23 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div>
-    	<legend>Auctions</legend>
-    	<table class="table table-striped">
-    		<thead>
-    			<td>Item</td>
-    			<td>Level</td>
-    			<td>Start Time</td>
-    			<td>State</td>
-    		</thead>
-    		{% for auction in auctions %}
-    		<tr>
-    			<td>{{ auction.item.name }}</td>
-    			<td>{{ auction.item.level }}</td>
-    			<td>{{ auction.created_date }}</td>
-    			<td>{{ auction.state }}</td>
-    		</tr>
-    		{% endfor %}
-    	</table>
-    </div>
+<div class='container-fluid'>
+	<div class="row-fluid">
+		<div class="span4">
+			<div class="well">
+				{% include "auctions/search.html" %}
+			</div>
+		</div>
+		<div class="span8">
+			{% include "auctions/auctions.html" %}
+		</div>
+	</div>
+</div>
 {% endblock %}

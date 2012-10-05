@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='en'>
     <head>
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="/{{ STATIC_URL }}/css/bootstrap.css">
         <style type="text/css">
             body
             {
@@ -13,7 +13,7 @@
                 padding: 9px 0;
             }
         </style>
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/bootstrap-responsive.css">
+        <link rel="stylesheet" type="text/css" href="/{{ STATIC_URL }}/css/bootstrap-responsive.css">
         <title>{% block title %}{% endblock %}</title>
     </head>
     <body>
@@ -25,39 +25,39 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="#">D3 Auction House</a>
-                    <!--
+                    <a class="brand" href="/">D3 Auction House</a>
+                    {% if user.is_authenticated %}
                     <div class="btn-group pull-right">
                         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                          <i class="icon-user"></i> Test User
+                          <i class="icon-user"></i> {{ user.username }}
                           <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                          <li><a href="#">Profile</a></li>
+                          <li><a href="/profile/">Profile</a></li>
                           <li class="divider"></li>
-                          <li><a href="#">Sign Out</a></li>
+                          <li><a href="/logout/">Sign Out</a></li>
                         </ul>
                     </div>
-                    -->
+                    {% else %}
+                    <div class="nav-collapse pull-right">
+                        <ul class="nav">
+                            <li><a class="pull-right" href="/login/">Log In</a></li>
+                        </ul>
+                    </div>
+                    {% endif %}
                     <div class="nav-collapse">
                         <ul class="nav">
-                          <li class="active"><a href="">Home</a></li>
-                          <li><a href="">Auctions</a></li>
+                          <li class="active"><a href="/">Home</a></li>
+                          <li><a href="/auctions/">Auctions</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
         
-      <div class='container'>
-            <div class='row'>
-                <div class='span6 offset3'>
-                    {% block content %}{% endblock %}
-                </div>
-            </div>
-        </div>
+        {% block content %}{% endblock %}
         
-        <script type="text/javascript" src="{{ STATIC_URL }}/js/jquery-1.7.2.min.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/{{ STATIC_URL }}/js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="/{{ STATIC_URL }}/js/bootstrap.min.js"></script>
     </body>
 </html>

@@ -4,6 +4,7 @@
     <div class='centered'>
         <legend>Login</legend>
         <form class='form-horizontal' action='/login/' method='POST'>
+            {{ request.POST }}
             {% csrf_token %}
             <fieldset>
                 {% for field in form %}
