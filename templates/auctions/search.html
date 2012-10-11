@@ -1,2 +1,17 @@
 <legend>Search</legend>
-{{ search_form }}
+<form class='form-horizontal' action='' method='GET'>
+    {% csrf_token %}
+    <fieldset>
+        {% for field in search_form %}
+        <div class='control-group'>
+            <label class='control-label' for='id_{{ field.name }}'>{{ field.label }}</label>
+            <div class='controls'>
+                {{ field }}
+            </div>
+        </div>
+        {% endfor %}
+        <div class='controls'>
+            <button type='submit' class='btn btn-large primary'>Search</button>
+        </div>
+    </fieldset>
+</form>
