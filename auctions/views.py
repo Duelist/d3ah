@@ -9,5 +9,5 @@ def index(request,template_name='auctions/index.html'):
     auctions = Auction.objects.filter(type='hc').order_by('-created_date')[:10]
     search_form = SearchForm()
     return render_to_response(template_name, 
-                                                    {'auctions': auctions, 'search_form':search_form, 'user':request.user}, 
-                                                     context_instance=RequestContext(request))
+                             {'auctions': auctions, 'search_form':search_form, 'user':request.user},
+                             context_instance=RequestContext(request))
