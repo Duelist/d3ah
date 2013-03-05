@@ -1,17 +1,17 @@
 <legend>Auctions (Most Recent)</legend>
 <table class="table table-striped">
-    <thead>
-        <td>Item</td>
-        <td>Level</td>
-        <td>Start Time</td>
-        <td>State</td>
-    </thead>
-    {% for auction in auctions %}
-    <tr>
-        <td>{{ auction.item.name }}</td>
-        <td>{{ auction.item.level }}</td>
-        <td>{{ auction.created_date }}</td>
-        <td>{{ auction.get_state_display }}</td>
-    </tr>
-    {% endfor %}
+  <thead>
+    <td>Item</td>
+      <td>Level</td>
+      <td>Start Time</td>
+      <td>State</td>
+  </thead>
+  {% for auction in auctions %}
+  <tr>
+      <td>{{ auction.item.name }}</td>
+      <td>{{ auction.item.level }}</td>
+      <td>{{ auction.created_date }}</td>
+      <td>{{ auction.get_state_display }}</td>
+  </tr>
+  {% endfor %}
 </table>

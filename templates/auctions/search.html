@@ -1,17 +1,24 @@
 <legend>Search</legend>
-<form class='form-horizontal' action='' method='GET'>
-    {% csrf_token %}
-    <fieldset>
-        {% for field in search_form %}
-        <div class='control-group'>
-            <label class='control-label' for='id_{{ field.name }}'>{{ field.label }}</label>
-            <div class='controls'>
-                {{ field }}
-            </div>
-        </div>
-        {% endfor %}
-        <div class='controls'>
-            <button type='submit' class='btn btn-large primary'>Search</button>
-        </div>
-    </fieldset>
+<form class='form-horizontal' action='/auctions/' method='GET'>
+  {% csrf_token %}
+    <div class='control-group'>
+      <label class="control-label">{{ search_form.type.label }}</label>
+      <div class="controls">
+        {{ search_form.type }}
+      </div>
+    </div>
+
+      <div class='control-group'>
+      <label class="control-label">{{ search_form.level.label }}</label>
+      <div class="controls">
+        {{ search_form.level }}
+      </div>
+    </div>
+
+    <div class='control-group'>
+      <label class="control-label"></label>
+      <div class="controls">
+        <button type='submit' class='btn btn-large primary'>Search</button>
+      </div>
+    </div>
 </form>
