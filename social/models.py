@@ -1,9 +1,17 @@
-from django.db import models
-from django.contrib.auth.models import User
+from d3ah.settings import DBNAME
+from mongoengine.django.auth import User
+from mongoengine import *
 
-class UserProfile(models.Model):
-    user = models.ForeignKey(User, unique=True)
-    bnet_id = models.CharField('Battle.net ID', max_length=32)
-    
+connect(DBNAME)
+
+class AppUser(User):
+    meta = {
+        'allow_inheritance': True,
+        'indexes': [
+            {'fields': ['username'], 'unique': True},
+            {'fields': ['email'], 'unique': True}
+        ]
+    }
+
     def __unicode__(self):
-      return self.user.username;
+      return self.username;

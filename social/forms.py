@@ -1,26 +1,58 @@
 from django import forms
-from django.contrib.auth.models import User
-from social.models import UserProfile
+from social.models import AppUser
+
+class AppUserForm(forms.Form):
+    email = forms.EmailField(max_length=64,
+                             required=True,
+                             error_messages={'required': 'Required'})
+    password = forms.CharField(max_length=64,
+                               widget=forms.PasswordInput,
+                               required=True,
+                               error_messages={'required': 'Required'})
+    password_confirm = forms.CharField(max_length=64,
+                                       widget=forms.PasswordInput,
+                                       required=True,
+                                       error_messages={'required': 'Required'})
+
+    def clean(self):
+        cleaned_data = super(AppUserForm, self).clean()
+        password = cleaned_data.get("password")
+        password_confirm = cleaned_data.get("password_confirm")
+
+        if password != password_confirm:
+            raise forms.ValidationError('Password mismatch.')
+
+        return cleaned_data
+
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=32,
+                               required=True)
+    password = forms.CharField(max_length=64,
+                               widget=forms.PasswordInput,
+                               required=True)
 
 class RegistrationForm(forms.Form):
-    username = forms.CharField(max_length=32)
-    email = forms.EmailField(max_length=64)
-    password = forms.CharField(max_length=64,widget=forms.PasswordInput)
+    username = forms.CharField(max_length=32,
+                               required=True,
+                               error_messages={'required': 'Required'})
+    email = forms.EmailField(max_length=64,
+                             required=True,
+                             error_messages={'required': 'Required'})
+    password = forms.CharField(max_length=64,
+                               widget=forms.PasswordInput,
+                               required=True,
+                               error_messages={'required': 'Required'})
+    password_confirm = forms.CharField(max_length=64,
+                                       widget=forms.PasswordInput,
+                                       required=True,
+                                       error_messages={'required': 'Required'})
 
-class LoginForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ('username', 'password')
-        widgets = {
-                    'password': forms.PasswordInput()
-        }
+    def clean(self):
+        cleaned_data = super(RegistrationForm, self).clean()
+        password = cleaned_data.get("password")
+        password_confirm = cleaned_data.get("password_confirm")
 
-class UserForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ('username', 'email')
+        if password != password_confirm:
+            raise forms.ValidationError('Password mismatch.')
 
-class UserProfileForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        fields = ('bnet_id',)
+        return cleaned_data

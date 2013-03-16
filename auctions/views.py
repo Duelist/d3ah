@@ -7,13 +7,9 @@ from auctions.forms import SearchForm
 from auctions.models import Auction
 
 def index(request,template_name='auctions/index.html'):
-    if request.is_ajax():
-        auctions = Auction.objects.all()[0]
-    else:
-        auctions = Auction.objects.filter(type='hc').order_by('-created_date')[:10]
-    
+    auctions = Auction.objects.filter(type='hc').order_by('-created_date')[:10]
     search_form = SearchForm()
-    return render_to_response(template_name, 
+    return render_to_response(template_name,
                               {'auctions': auctions,
                                'search_form':search_form,
                                'user':request.user},

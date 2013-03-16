@@ -1,6 +1,7 @@
-from django.db import models
-from django.contrib.auth.models import User
-from django.conf import settings
+from d3ah.settings import DBNAME
+from mongoengine import *
+
+connect(DBNAME)
 
 AUCTION_TYPES = (
     ('sc','Softcore'),
@@ -13,6 +14,7 @@ AUCTION_RULES = (
 )
 
 AUCTION_STATES = (
+	('hd', 'Hidden'),
     ('av', 'Available'),
     ('pd','Pending'),
     ('cp', 'Complete'),
@@ -31,38 +33,29 @@ ITEM_TYPES = (
     ('ch','Chest'),
 )
 
-class Item(models.Model):
-    user = models.ForeignKey(User)
-    type = models.CharField('Item Type', max_length=2, choices=ITEM_TYPES)
-    name = models.CharField('Item Name', max_length=64)
-    level = models.IntegerField('Required Level')
-    item_level = models.IntegerField('Item Level')
-    
-    def __unicode__(self):
-        return self.name
-    
-class Affix(models.Model):
-    item = models.ForeignKey(Item)
-    type = models.CharField('Affix Type', max_length=3, choices=AFFIX_TYPES)
-    value = models.IntegerField('Affix Value')
-    
-    def __unicode__(self):
-        return '(' + self.item.name + ') '  + dict(AFFIX_TYPES)[self.type] + ': ' + str(self.value)
+class Affix(EmbeddedDocument):
+    type = StringField(max_length=3, choices=AFFIX_TYPES, required=True)
+    value = IntField(required=True)
 
-class Auction(models.Model):
-    item = models.OneToOneField(Item)
-    type = models.CharField('Auction Type', max_length=2, choices=AUCTION_TYPES)
-    state = models.CharField('Auction State', max_length=2, choices=AUCTION_STATES)
-    created_date = models.DateTimeField('Date Created')
-    
-    def __unicode__(self):
-        return self.item.name
+class Item(EmbeddedDocument):
+    name = StringField(max_length=120, required=True)
+    type = StringField(max_length=2, choices=ITEM_TYPES, required=True)
+    level = IntField(min_value=1, max_value=80, required=True)
+    item_level = IntField(min_value=1, max_value=83, required=True)
+    affixes = ListField(EmbeddedDocumentField(Affix))
 
-class Rule(models.Model):
-    auction = models.ForeignKey(Auction)
-    type = models.CharField('Rule Type', max_length=3, choices=AUCTION_RULES)
-    value = models.IntegerField('Rule Value')
+class Rule(EmbeddedDocument):
+    type = StringField(max_length=3, choices=AUCTION_RULES, required=True)
+    value = IntField(required=True)
 
-class Bid(models.Model):
-    user = models.ForeignKey(User)
-    value = models.IntegerField('Bid Value')
+class Bid(EmbeddedDocument):
+    bidder_id = IntField(min_value=1, required=True)
+    value = FloatField(min_value=0, required=True)
+
+class Auction(Document):
+    user_id = IntField(min_value=1, required=True)
+    type = StringField(max_length=2, choices=AUCTION_TYPES, required=True)
+    state = StringField(max_length=2, choices=AUCTION_STATES, required=True)
+    created_date = DateTimeField(required=True)
+    item = EmbeddedDocumentField(Item)
+    rules = ListField(EmbeddedDocumentField(Rule))

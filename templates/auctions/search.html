@@ -1,5 +1,5 @@
 <legend>Search</legend>
-<form class='form-horizontal' action='/auctions/' method='GET'>
+<form class='form-inline' action='/auctions/' method='GET'>
   {% csrf_token %}
     <div class='control-group'>
       <label class="control-label">{{ search_form.type.label }}</label>

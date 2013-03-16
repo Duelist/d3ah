@@ -4,10 +4,12 @@
   <div class='container'>
     <div class='row'>
       <div class='span6 offset3'>
-        {% for error in errors %}
-        <div class='alert alert-error fade in'>
-          {{ error }}
-        </div>
+        {% for form in forms %}
+          {% for error in form.non_field_errors %}
+          <div class='alert alert-error fade in'>
+            {{ error }}
+          </div>
+          {% endfor %}
         {% endfor %}
         <legend>{{ title }}</legend>
         <form class='form-horizontal' action='{{ action }}' method='POST'>
@@ -20,11 +22,12 @@
                 <div class='controls'>
                   {{ field }}
                 </div>
+                <div>{{ field.errors }}</div>
               </div>
               {% endfor %}
             {% endfor %}
             <div class='controls'>
-              <button type='submit' class='btn btn-large primary'>Save</button>
+              <button type='submit' class='btn btn-large primary'>{{ button_text }}</button>
             </div>
           </fieldset>
         </form>
