@@ -1,17 +1,23 @@
 import os
 
-try:
-    import local_settings
-    DATABASES = local_settings.DATABASES
-    PROJECT_DIR = local_settings.PROJECT_DIR
-    MEDIA_ROOT = local_settings.MEDIA_ROOT
-    MEDIA_URL = local_settings.MEDIA_URL
-    STATIC_ROOT = local_settings.STATIC_ROOT
-    STATIC_URL = local_settings.STATIC_URL
-    GOOGLE_ANALYTICS_TRACKING_CODE = local_settings.GOOGLE_ANALYTICS_TRACKING_CODE
-except ImportError:
-    pass
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.',      # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'd3ah',                       # Or path to database file if using sqlite3.
+        'USER': '',                           # Not used with sqlite3.
+        'PASSWORD': '',                       # Not used with sqlite3.
+        'HOST': '',                           # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                           # Set to empty string for default. Not used with sqlite3.
+    }
+}
 
+PROJECT_DIR = '/Users/Duelist/Desktop/d3ah/'
+MEDIA_ROOT = 'media/'
+MEDIA_URL = 'media'
+STATIC_ROOT = 'static/'
+STATIC_URL = 'static'
+SITE_SERVER_NAME = 'Developer'
+GOOGLE_ANALYTICS_TRACKING_CODE = ''
 DBNAME = 'd3ah'
 
 DEBUG = True
@@ -108,7 +114,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'auctions',

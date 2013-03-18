@@ -6,23 +6,27 @@
       <div class='span3'>
         <div class='well sidebar-nav'>
           <ul class='nav nav-list'>
-            <li class="nav-header">Sidebar</li>
-            <li class="active"><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li class="nav-header">Sidebar</li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
+            <li class="nav-header">Dashboard</li>
+            <li {% if active_page == 'my-auctions' %}class="active"{% endif %}>
+              <a href="{% url social_dashboard page_name='my-auctions' %}">My Auctions</a>
+            </li>
+            <li {% if active_page == 'auctions-watched' %}class="active"{% endif %}>
+              <a href="{% url social_dashboard page_name='auctions-watched' %}">Auctions Watched</a>
+            </li>
+            <li {% if active_page == 'auctions-won' %}class="active"{% endif %}>
+              <a href="{% url social_dashboard page_name='auctions-won' %}">Auctions Won</a>
+            </li>
           </ul>
         </div>
       </div>
       <div class='span9'>
-
+        {% if active_page == 'my-auctions' %}
+          <p>My Auctions</p>
+        {% else %}{% if active_page == 'auctions-watched' %}
+          <p>Auctions Watched</p>
+        {% else %}{% if active_page == 'auctions-won' %}
+          <p>Auctions Won</p>
+        {% endif %}{% endif %}{% endif %}
       </div>
     </div>
   </div>

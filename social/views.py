@@ -1,10 +1,12 @@
+import json
+
 from django.core.urlresolvers import reverse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
-from django.core.mail import send_mail
+from django.views.decorators.csrf import csrf_exempt
 
 from social.forms import *
 from social.models import AppUser
@@ -150,9 +152,12 @@ def profile(request,template_name='social/form.html'):
                                'forms':forms},
                               context_instance=RequestContext(request))
 
+@csrf_exempt
 @login_required
-def dashboard(request,template_name='social/dashboard.html'):
-  # Create auctions, view existing auctions, profile edit
+def dashboard(request,page_name='my-auctions',template_name='social/dashboard.html'):
+  if page_name:
+    active_page = page_name
+
   return render_to_response(template_name,
-                            {},
+                            {'active_page': active_page},
                             context_instance=RequestContext(request))
